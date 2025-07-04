@@ -1,0 +1,70 @@
+apiVersion: batch/v1
+kind: Job
+metadata:
+  name: mongo-init-job
+  namespace: devops
+spec:
+  template:
+    spec:
+      initContainers:
+      - name: wait-for-mongo
+        image: busybox
+        command: ['sh', '-c']
+        args:
+          - |
+            until 
+                  nc -z mongo-statefulset-0.mongo-service-headless 27017 && \
+                  nc -z mongo-statefulset-1.mongo-service-headless 27017 && \
+                  nc -z mongo-statefulset-2.mongo-service-headless 27017; do
+              echo "Waiting for MongoDB pods to be ready..."
+              sleep 2
+            done
+
+      containers:
+      - name: mongo-init
+        image: mongo:latest
+        command: ["sh", "-c"]
+        args:
+          - |
+            echo "🧠 Checking if replica set is already initialized..."
+            IS_INIT=$(mongosh "mongodb://mongo-statefulset-0.mongo-service-headless:27017" --quiet --eval 'db.adminCommand({ replSetGetStatus: 1 }).ok' || echo "0")
+
+            if [ "$IS_INIT" != "1" ]; then
+              echo "⚙️ Initiating replica set..."
+              mongosh "mongodb://mongo-statefulset-0.mongo-service-headless:27017" --quiet --eval '
+              rs.initiate({
+                _id: "rs0",
+                members: [
+                  { _id: 0, host: "mongo-statefulset-0.mongo-service-headless:27017" },
+                  { _id: 1, host: "mongo-statefulset-1.mongo-service-headless:27017" },
+                  { _id: 2, host: "mongo-statefulset-2.mongo-service-headless:27017" }
+                ]
+              });
+            '
+            else
+              echo "Replica set already initialized."
+            fi
+
+            echo "Waiting for a primary..."
+            until mongosh "mongodb://mongo-statefulset-0.mongo-service-headless:27017" --quiet --eval 'rs.isMaster().ismaster' | grep true; do
+              echo "Waiting for primary..."
+              sleep 2
+            done
+
+            echo "Creating appuser if not exists..."
+            mongosh "mongodb://mongo-statefulset-0.mongo-service-headless:27017/admin" --quiet --eval '
+              const user = db.getUser("appuser");
+              if (!user) {
+              db.createUser({
+                user: "appuser",
+                pwd: "password",
+                roles: [{ role: "readWrite", db: "mongoose_test" }]
+              });
+              print("Created user appuser");
+            } else {
+              print("User appuser already exists");
+            }
+            '
+      restartPolicy: OnFailure
+
+

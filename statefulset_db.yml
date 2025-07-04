@@ -1,0 +1,72 @@
+apiVersion: apps/v1
+kind: StatefulSet
+metadata:
+  name: mongo-statefulset
+  namespace: devops
+spec:
+  replicas: 3
+  serviceName: mongo-service-headless
+  selector:
+    matchLabels:
+      app: appmongodb
+  template:
+    metadata:
+      labels:
+        app: appmongodb
+    spec:
+    
+      containers:
+        - name: appmongodb
+          image: mongo:latest
+          ports:
+            - containerPort: 27017
+          command:
+            - mongod
+            - "--replSet"
+            - rs0
+            - "--bind_ip_all"
+          env:
+            - name: MONGO_INITDB_ROOT_USERNAME
+              valueFrom:
+                secretKeyRef:
+                  name: myapp-secret
+                  key: appuser
+            - name: MONGO_INITDB_ROOT_PASSWORD
+              valueFrom:
+                secretKeyRef:
+                  name: myapp-secret
+                  key: apppassword
+          volumeMounts:
+            - name: mongo-data
+              mountPath: /data/db
+            - name: mongo-keyfile-volume
+              mountPath: /etc/secrets
+              readOnly: true
+
+      volumes:
+      - name: mongo-keyfile-volume
+        secret:
+          secretName: mongo-keyfile-secret
+
+                #- name: mongo-config
+                #mountPath: /docker-entrypoint-initdb.d
+                #volumes:
+                #- name: mongo-config
+                #configMap:
+                #name: myapp-configdb        
+
+
+  volumeClaimTemplates:
+  - metadata:
+      name: mongo-data
+    spec:
+       accessModes: ["ReadWriteOnce"]
+       resources:
+         requests:
+           storage: 2Gi
+       storageClassName: standard
+              
+
+
+      
+  
