@@ -26,23 +26,24 @@ Workloads are isolated within a Namespace with RBAC policies for security
 
 📂 Project Structure
 
-.
-├── k8s/                       # Kubernetes manifests
-│   ├── namespace.yaml
-│   ├── configmap.yaml
-│   ├── secrets.yaml
-│   ├── node-app-deployment.yaml
-│   ├── mongo-statefulset.yaml
-│   ├── mongo-service.yaml
-│   ├── mongo-init-job.yaml
-│   └── rbac.yaml
-├── Dockerfile                # Multi-stage Docker build for Node.js
-├── .dockerignore
-├── .trivyignore              # Ignore rules for Trivy
-├── README.md                 # Project documentation
-├── src/                      # Node.js source code
-│   └── ...
-└── package.json
+📦 final_k8s_project/
+├── 📁 k8s/                           # Kubernetes manifests
+│   ├── 📄 namespace.yaml            # Namespace definition
+│   ├── 📄 configmap.yaml            # App config via ConfigMap
+│   ├── 📄 secrets.yaml              # Sensitive data via Secret
+│   ├── 📄 node-app-deployment.yaml  # Node.js app Deployment
+│   ├── 📄 mongo-statefulset.yaml    # MongoDB replica set StatefulSet
+│   ├── 📄 mongo-service.yaml        # MongoDB headless service
+│   ├── 📄 mongo-init-job.yaml       # Job to init replica set & create user
+│   └── 📄 rbac.yaml                 # RBAC roles and bindings
+├── 📄 Dockerfile                    # Multi-stage Docker build
+├── 📄 .dockerignore                 # Files to ignore in Docker build
+├── 📄 .trivyignore                  # Trivy security scan ignore rules
+├── 📄 README.md                     # Project documentation
+├── 📁 src/                          # Node.js application source code
+│   └── 📄 ...                       # Your .js files and logic
+└── 📄 package.json                  # Node.js dependencies and scripts
+
 
 🚀 Getting Started
 
