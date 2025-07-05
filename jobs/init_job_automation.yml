@@ -26,11 +26,11 @@ spec:
         command: ["sh", "-c"]
         args:
           - |
-            echo "🧠 Checking if replica set is already initialized..."
+            echo "Checking if replica set is already initialized..."
             IS_INIT=$(mongosh "mongodb://mongo-statefulset-0.mongo-service-headless:27017" --quiet --eval 'db.adminCommand({ replSetGetStatus: 1 }).ok' || echo "0")
 
             if [ "$IS_INIT" != "1" ]; then
-              echo "⚙️ Initiating replica set..."
+              echo "Initiating replica set..."
               mongosh "mongodb://mongo-statefulset-0.mongo-service-headless:27017" --quiet --eval '
               rs.initiate({
                 _id: "rs0",
