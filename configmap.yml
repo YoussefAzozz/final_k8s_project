@@ -4,7 +4,7 @@ metadata:
   name: myapp-config
   namespace: devops
 data:
-  MODE: "development"
+  MODE: "PRODUCTION"
   PORT: "5000"
   EMAIL: "yossefazozz40@gmail.com"
   cloud_name: "dhqnmgd9y"
