@@ -29,9 +29,6 @@ Key Components:
 7) Namespace + RBAC provide workload isolation and security.
 
 
-
-
-
 📂 Project Structure
 
 final_k8s_project/
@@ -53,15 +50,12 @@ final_k8s_project/
 └── README.md                     # Project documentation
 
 
-🚀 Getting Started
+<h3>🚀 Getting Started</h3>
 
-Prerequisites
-
-Kubernetes cluster (local via KinD, Minikube, or cloud)
-
-kubectl configured
-
-Docker
+Prerequisites:
+I) Kubernetes cluster (local via KinD, Minikube, or cloud)
+II) kubectl configured
+III) Docker installed
 
 1. Clone the repository
 
@@ -149,7 +143,7 @@ Persistent Volumes (PV, PVC)
 
 Kubernetes Job for DB initialization
 
-📦 Future Improvements
+<h2>📦Future Improvements</h2>
 
 Add monitoring with Prometheus + Grafana
 
