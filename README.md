@@ -136,17 +136,17 @@ Make sure there are no CRITICAL vulnerabilities in production images.
 
 <h2>📦Future Improvements</h2>
 
-Add monitoring with Prometheus + Grafana
+• Add monitoring with Prometheus + Grafana
 
-Add Ingress + TLS support
+• Add Ingress + TLS support
 
-CI/CD pipeline with GitHub Actions or Jenkins
+• CI/CD pipeline with GitHub Actions or Jenkins
 
 📚 Resources
 
-Kubernetes Docs
+Kubernetes Docs: https://kubernetes.io/docs/
 
-MongoDB Replica Sets
+MongoDB Replica Sets: https://www.mongodb.com/developer/products/mongodb/mongodb-with-kubernetes/
 
 Trivy
 
