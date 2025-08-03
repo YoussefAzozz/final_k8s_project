@@ -1,26 +1,31 @@
-# final_k8s_project
+<h1 align="center">🚀 Kubernetes-Based Node.js Microservice with MongoDB</h1>
 
-Final Kubernetes Project
+This project demonstrates how to deploy a **production-ready Node.js microservice** with a **MongoDB replica set** on **Kubernetes**, implementing **best practices for containerization, security, database clustering, and infrastructure automation**.
+---
 
-Overview
+## 📖 Overview
+This project demonstrates how to deploy a **scalable, secure, and production-ready Node.js microservice** 
+with a **MongoDB replica set** on **Kubernetes**, following **best practices for:**
 
-This project demonstrates how to deploy a production-grade, scalable, and secure Node.js backend application with a MongoDB replica set using Kubernetes. It showcases best practices in containerization, security, database clustering, and infrastructure as code.
+- Containerization
+- Security & Secrets Management
+- Stateful & Stateless Workloads
+- Database Clustering
 
-🧩 Architecture
+<h2>🧩 Architecture</h2>
 
-Client sends requests to an NGINX LoadBalancer
+```plaintext
+Client → NGINX LoadBalancer → Node.js Pods → MongoDB Replica Set
+Key Components:
+1) NGINX LoadBalancer handles incoming traffic.
+2) Node.js Application Pods scale horizontally with a Deployment.
+3) MongoDB Replica Set (StatefulSet) ensures data consistency.
+4) Headless Service allows internal communication between MongoDB replicas.
+5) Persistent Volumes keep MongoDB data safe.
+6) Kubernetes Job initializes the replica set and MongoDB user.
+7) Namespace + RBAC provide workload isolation and security.
 
-LoadBalancer routes requests to one of the replicated Node.js pods
-
-Node.js app communicates with a MongoDB replica set via a headless service
-
-Configuration and secrets are managed securely via ConfigMaps and Secrets
-
-Each MongoDB pod has its own Persistent Volume to retain data
-
-Kubernetes Job initializes replica set and MongoDB user
-
-Workloads are isolated within a Namespace with RBAC policies for security
+<p align="center"> <img src="images/k8s-architecture.png" alt="Kubernetes Architecture" width="650"/> </p>
 
 
 
