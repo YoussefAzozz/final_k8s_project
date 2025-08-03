@@ -123,25 +123,16 @@ Make sure there are no CRITICAL vulnerabilities in production images.
 
 ⚙️ Technologies Used
 
-Node.js
-
-MongoDB 8 Replica Set
-
-Kubernetes
-
-Docker (multi-stage)
-
-Trivy for image scanning
-
-NGINX LoadBalancer
-
-ConfigMap & Secrets
-
-RBAC & Namespace Security
-
-Persistent Volumes (PV, PVC)
-
-Kubernetes Job for DB initialization
+• Node.js
+• MongoDB 8 Replica Set
+• Kubernetes
+• Docker (multi-stage Docker image)
+• Trivy for image scanning
+• NGINX LoadBalancer
+• ConfigMap & Secrets
+• RBAC & Namespace Security(Kubernetes Security)
+• Persistent Volumes (PV, PVC)
+• Kubernetes Job for DB initialization
 
 <h2>📦Future Improvements</h2>
 
