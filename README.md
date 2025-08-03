@@ -25,7 +25,7 @@ Key Components:
 6) Kubernetes Job initializes the replica set and MongoDB user.
 7) Namespace + RBAC provide workload isolation and security.
 
-<p align="center"> <img src="images/k8s-architecture.png" alt="Kubernetes Architecture" width="650"/> </p>
+<p align="center"> <img src="k8s_Cluster_diagram.png" alt="Kubernetes Architecture" width="650"/> </p>
 
 
 
